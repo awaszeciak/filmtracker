@@ -198,9 +198,9 @@ def import_movies(movie_ids):
     for movie_id in movie_ids:
         try:
             import_movie(movie_id)
-            print(f"Zaimportowano film TMDB ID: {movie_id}")
+            print(f"Imported movie TMDB ID: {movie_id}")
         except (ValueError, requests.RequestException, psycopg.Error) as e:
-            print(f"Nie udało się zaimportowac filmu {movie_id} : {e}")
+            print(f"Failed to import movie TMDB ID: {movie_id} : {e}")
         
 
 
