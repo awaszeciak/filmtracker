@@ -1,75 +1,29 @@
 from fastapi import APIRouter, HTTPException
-from backend.database import get_connection
+from fastapi import Depends
+from sqlalchemy.orm import Session
+from sqlalchemy import select
+from backend.database import get_db
+from backend.models.film import Film
+from backend.schemas.film import FilmListItem, FilmDetail
 
 router = APIRouter()
 
 
-@router.get("/films")
-def get_films():
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute("SELECT id_filmu, tytul, rok_produkcji, plakat_url FROM filmtracker.film ORDER BY tytul")
-
-            rows = cur.fetchall()
-
-    films = []
-
-    for row in rows:
-        film = {
-            "id": row[0],
-            "title": row[1],
-            "year": row[2],
-            "poster_url": row[3]
-        }
-
-        films.append(film)
+@router.get("/films", response_model=list[FilmListItem])
+def get_films(db: Session = Depends(get_db)):
+    stmt = select(Film)
+    all_films = db.scalars(stmt)
+    films = all_films.all()
 
     return films
 
 
-@router.get("/films/{id}")
-def get_film(id: int):
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute("SELECT id_filmu, tytul, rok_produkcji, plakat_url,  data_premiery, opis, czas_trwania FROM filmtracker.film WHERE id_filmu = %s", (id,))
-            row = cur.fetchone()
+@router.get("/films/{id}", response_model=FilmDetail)
+def get_film(id: int, db: Session = Depends(get_db)):
+    stmt = select(Film).where(Film.id_filmu == id)
+    film = db.scalars(stmt).first()
 
-            if (row is None):
-                raise HTTPException(404, "Nie znaleziono filmu")
-
-            cur.execute("SELECT g.nazwa FROM filmtracker.film_gatunek fg JOIN filmtracker.gatunek g ON fg.id_gatunku=g.id_gatunku WHERE fg.id_filmu = %s", (id,))
-            genres_rows = cur.fetchall()
-
-            genres = []
-
-            for genre_row in genres_rows:
-                genres.append(genre_row[0])
-
-            cur.execute("SELECT a.id_aktora, a.nazwa FROM filmtracker.film_aktor fa JOIN filmtracker.aktor a ON fa.id_aktora=a.id_aktora WHERE fa.id_filmu = %s", (id,))
-            actors_rows = cur.fetchall()
-
-            actors = []
-
-            for actors_row in actors_rows:
-                actor = {"id": actors_row[0], "name": actors_row[1]}
-                actors.append(actor)
-
-            cur.execute("SELECT count(*), avg(o.wartosc) FROM filmtracker.ocena o WHERE o.id_filmu = %s", (id,))
-            rating_row = cur.fetchone()
-
-
-    film = {
-        "id": row[0],
-        "title": row[1],
-        "year": row[2],
-        "poster_url": row[3],
-        "release_date": row[4],
-        "description": row[5],
-        "runtime": row[6],
-        "genres": genres,
-        "cast":actors,
-        "rating_count":rating_row[0],
-        "average_rating":rating_row[1]
-    }
+    if film is None:
+        raise HTTPException(404, "Nie znaleziono filmu")
 
     return film
