@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from sqlalchemy import select
+from sqlalchemy import select, func
 from backend.database import get_db
-from backend.models import Film
+from backend.models import Film, Rating
 from backend.schemas.film import FilmListItem, FilmDetail
 
 router = APIRouter()
@@ -25,4 +25,22 @@ def get_film(id: int, db: Session = Depends(get_db)):
     if film is None:
         raise HTTPException(404, "Nie znaleziono filmu")
 
-    return film
+    rating_stmt = select(func.avg(Rating.wartosc), func.count(Rating.id_oceny)).where(Rating.id_filmu == id)
+    rating = db.execute(rating_stmt)
+    average_rating, rating_count = rating.one()
+
+    film_data = {
+        "id_filmu": film.id_filmu,
+        "tytul": film.tytul,
+        "rok_produkcji": film.rok_produkcji,
+        "plakat_url": film.plakat_url,
+        "data_premiery": film.data_premiery,
+        "opis": film.opis,
+        "czas_trwania": film.czas_trwania,
+        "gatunki": film.gatunki,
+        "obsada": film.obsada,
+        "average_rating": float(average_rating) if average_rating is not None else None,
+        "rating_count": rating_count
+    }
+
+    return FilmDetail.model_validate(film_data)

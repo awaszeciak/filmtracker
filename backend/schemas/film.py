@@ -45,3 +45,5 @@ class FilmDetail(FilmListItem):
             cast.append(actor)
 
         return cast
+    average_rating: float | None
+    rating_count: int
