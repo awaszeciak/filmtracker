@@ -5,6 +5,3 @@
 .venv-win/
 __pycache__/
 *.pyc
-test_db.py
-test_tmdb.py
-szkielet.txt

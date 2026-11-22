@@ -1,9 +1,8 @@
-from fastapi import APIRouter, HTTPException
-from fastapi import Depends
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 from backend.database import get_db
-from backend.models.film import Film
+from backend.models import Film
 from backend.schemas.film import FilmListItem, FilmDetail
 
 router = APIRouter()

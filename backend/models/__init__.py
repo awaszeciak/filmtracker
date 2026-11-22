@@ -1,3 +1,4 @@
 from .film import Film
 from .genre import Genre
-from backend.models import Film, Genre
+from .actor import Actor
+from .film_actor import FilmActor
