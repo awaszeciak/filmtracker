@@ -1,4 +1,3 @@
-import logo from '../assets/filmtracker-logo.png'
 import './Navbar.css'
 import { NavLink } from 'react-router-dom'
 import { Clapperboard, Search} from 'lucide-react'
