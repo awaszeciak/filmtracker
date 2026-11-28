@@ -17,7 +17,12 @@ function Films() {
                 <Link to={`/films/${film.id}`} className="film-card" key={film.id}>
                     <img src={film.poster_url} alt={film.title} />
                     <h3>{film.title}</h3>
-                    <p>{film.year}</p>
+                    <div className='film-card-info'>
+                        <span>{film.year}</span>
+                        <span className='film-card-director'>
+                            {film.directors.join(', ')}
+                        </span>
+                    </div>
                 </Link>
             ))}
         </div>

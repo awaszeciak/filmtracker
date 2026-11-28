@@ -40,7 +40,8 @@ def get_film(id: int, db: Session = Depends(get_db)):
         "gatunki": film.gatunki,
         "obsada": film.obsada,
         "average_rating": float(average_rating) if average_rating is not None else None,
-        "rating_count": rating_count
+        "rating_count": rating_count,
+        "rezyserzy": film.rezyserzy
     }
 
     return FilmDetail.model_validate(film_data)

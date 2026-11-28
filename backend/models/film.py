@@ -19,4 +19,5 @@ class Film(Base):
     czas_trwania: Mapped[int | None]
     gatunki: Mapped[list["Genre"]] = relationship(secondary=film_genre, back_populates="filmy")
     obsada: Mapped[list["FilmActor"]] = relationship(back_populates="film")
+    rezyserzy: Mapped[list["FilmDirector"]] = relationship(back_populates="film")
     

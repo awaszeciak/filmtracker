@@ -26,7 +26,14 @@ function FilmDetail() {
 
                 <div className="film-info">
 
-                    <h1>{film.title}</h1>
+                    <div className='film-heading'>
+                        <h1>{film.title}</h1>
+
+                        <p className="film-director">
+                            {film.directors.join(', ')}
+                        </p>
+                    </div>
+
                     <p>{film.year}</p>
 
                     <div className='film-genres'>
@@ -97,6 +104,10 @@ function FilmDetail() {
                 <div className='metadata-row'>
                     <span>Czas trwania</span>
                     <span>{film.runtime} minut</span>
+                </div>
+                <div className='metadata-row'>
+                    <span>Reżyseria</span>
+                    <span>{film.directors.join(', ')}</span>
                 </div>
             </section>
             

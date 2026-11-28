@@ -8,6 +8,11 @@ class FilmListItem(BaseModel):
     title: str = Field(validation_alias="tytul")
     year: int = Field(validation_alias="rok_produkcji")
     poster_url: str | None = Field(validation_alias="plakat_url")
+    directors: list[str] = Field(validation_alias="rezyserzy")
+    @field_validator("directors", mode="before")
+    @classmethod
+    def convert_directors(cls, value):
+        return [director.rezyser.nazwa for director in value]
 
 
 class CastItem(BaseModel):
