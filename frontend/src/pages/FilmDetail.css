@@ -1,0 +1,147 @@
+.film-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.film-info h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.film-info p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.film-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.film-genres span {
+    background-color: #282630;
+    border: 1px solid #3B3748;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.film-rating {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #111016;
+    border: 1px solid #2E2B39;
+    border-radius: 12px;
+    margin-top: 8px;
+    gap: 12px;
+}
+
+.film-cast {
+    margin-top: 32px;
+}
+
+.cast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.cast-card {
+    display: flex;
+    align-items: center;
+    background-color: #191821;
+    padding: 16px;
+    border-radius: 12px;
+    border: solid 1px #302D3C;
+    gap: 12px;
+}
+
+.cast-avatar {
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    background-color: #39245E;
+}
+
+.cast-info h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.cast-info p {
+    font-size: 12px;
+    color: #A5A3B0;
+    margin: 0;
+}
+
+.film-detail-card {
+    display: grid;
+    grid-template-columns: 240px 2fr;
+    gap: 32px;
+    background-color: #191821;
+    border: 1px solid #302D3C;
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.film-poster img {
+    width: 100%;
+    height: auto;
+}
+
+.rating-info {
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+}
+
+.rating-value {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.rating-count {
+    font-size: 12px;
+    color: #A5A3B0;
+}
+
+.metadata-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.film-metadata {
+    background-color: #191821;
+    border: 1px solid #302D3C;
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 32px;
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.film-metadata h3 {
+    border-bottom: 1px solid #302D3C;
+    padding-bottom: 15px;
+    margin-top: 0;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.film-detail {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}

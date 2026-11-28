@@ -8,6 +8,7 @@ import {Routes, Route} from 'react-router-dom'
 import Favourites from './pages/Favourites'
 import Search from './pages/Search'
 import Stats from './pages/Stats'
+import FilmDetail from './pages/FilmDetail'
 
 function App() {
   return(
@@ -22,6 +23,7 @@ function App() {
           <Route path="/favourites" element ={<Favourites />} />
           <Route path="/search" element={<Search />} />
           <Route path="/stats" element={<Stats />} />
+          <Route path="/films/:id" element={<FilmDetail />} />
         </Routes>
       </main>
     </div>
